@@ -1,0 +1,7 @@
+
+require "EMcore"
+require "Circuitcore"
+include EMFcalculators
+include Circuitcalculators
+cocoil=Simplecoil.new(1,2)
+puts Fieldtype?(1,1,1)
