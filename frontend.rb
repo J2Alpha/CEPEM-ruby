@@ -10,6 +10,7 @@ include Singleparticlemotion
 #cocoil=Simplecoil.new(1,2)
 #puts Reflectioncoeficient(1,2)
 #puts Fieldtype?(1,1,1)
+
 p1=Point.new(1,0,0)
 p2=Point.new(0,1,0)
 p3=Point.new(1,-1,-1)
@@ -23,13 +24,20 @@ line1=Line.new(p1,p2)
 #puts la.is_a?(BigDecimal)
 #puts p1.cross(p2).C
 
-#puts p1.Cross(p2).C
 v=Point.new(0,10,0)
 e=Point.new(0,10,0)
 q=BigDecimal.new("1")
 b=Point.new(5,0,0)
 puts (q*(e+(v.Cross(b)))).C
 
+mat1=MagneticMaterial.new(BigDecimal.new(5400.to_s),BigDecimal.new(4300.to_s),BigDecimal.new(0.38.to_s))
+sp=[BigDecimal.new(0.0405.to_s),BigDecimal.new(0.0585.to_s),BigDecimal.new(0.0185.to_s)]
+shp1=Coreshape.new('t',sp)
+tran1=Transformer.new(shp1,mat1,BigDecimal.new(10.to_s),BigDecimal.new(12.to_s),BigDecimal.new(100000.to_s),true)
+puts shp1.Area?
+puts mat1.Al?
+puts tran1.PrimaryTurns?
+puts tran1.SecondaryTurns?
 
 # require 'SVG/Graph/Line'
 #   fields = %w(Jan Feb Mar);
