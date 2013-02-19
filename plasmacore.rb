@@ -50,8 +50,16 @@ module Singleparticlemotion
   #classes
   class Particle
     def initialize(charge, mass, position=Point.new(0,0,0), velocity=Point.new(0,0,0), acceleration=Point.new(0,0,0))
-      @Q=charge#in Coulomb
-      @M=mass#in kg
+      if charge.is_a?(String) 
+	      @Q=BigDecimal.new(charge)#in Coulomb
+      else 
+	      @Q=BigDecimal.new(charge.to_s)#in Coulomb
+      end
+      if mass.is_a?(String) 
+	      @M=BigDecimal.new(mass)#in kg
+      else 
+	      @M=BigDecimal.new(mass.to_s)#in kg
+      end
       @A=acceleration# in 3D m/s^2
       @V=velocity# in 3D m/s
       @P=position#in 3D m
@@ -62,18 +70,29 @@ module Singleparticlemotion
     def Mass?()
 	@M
     end
+    def Acceleration?()
+	@A
+    end
     def Velocity?()
 	@V
     end
+    def Position?()
+	@P
+    end
     def Applylorentzforce!(efield,bfield,timestep)
 	f=lorentzforce(self,efield,bfield)
+	if timestep.is_a?(String) 
+	      t=BigDecimal.new(timestep)#in kg
+	else 
+	      t=BigDecimal.new(timestep.to_s)#in kg
+	end
 	@A=f/@M
-	@V=at*timestep
-	@P=vt*timestep
+	@V=@A*t
+	@P=@V*t
     end
   end
   def lorentzforce(particle,efield,bfield)
-    particle.Charge?*(efield+(particle.Velocity?.cros(bfield)))
+    particle.Charge?*(efield+(particle.Velocity?.Cross(bfield)))
   end
   def cyclotronfrequency(particle,bfield)
     ((particle.Charge?)*bfield/particle.Mass?).abs()

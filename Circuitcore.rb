@@ -26,9 +26,15 @@ module Circuitcalculators
     def Area?
 	    @Area
     end
-  end
-  class MagneticMaterial #TODO make more general Material class, mix or inherit to/from that
-    def initialize(alvalue,permeability=0,saturationlimit=0.5,permitivity=0,hysteresis=0,frequencyrange=[0,1000000000])
+end
+class Material
+	def iniialize(density=0)
+		@Density=density
+	end
+end
+class MagneticMaterial < Material
+    def initialize(alvalue,density=0,permeability=0,saturationlimit=0.5,permitivity=0,hysteresis=0,frequencyrange=[0,1000000000])
+    super(density) #initialize superclass material
     @mu=permeability
     @eta=permitivity
     @nu=hysteresis
